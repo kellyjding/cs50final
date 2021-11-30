@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    ur movie taste sux
+{% endblock %}
+
+{% block main %}
+    <div id="header">
+        <p>ur movie taste sux</p>
+    </div>
+    
+    <div class="col text-center">
+        <form method="get" action="#instructions">
+            <button type="submit" id="startbtn">get started</button>
+        </form>
+    </div>
+
+    <div class="container">
+        <h2 id="instructions">follow these steps!</h2>
+        <ol>
+            <li>go to <a href="https://letterboxd.com/settings/data/">letterboxd.com</a> 
+                and on the settings page, click the import & export tab!</li>
+            <li>click the 'export your data' button.</li>
+            <li>upload here!!!!</li>
+        </ol>
+
+        <form action="/upload.php" id="uploadform">
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" id="inputGroupFile02" id="movieupload" name="movieupload">
+              </div>
+
+            <button type="submit" id="uploadbtn">let us judge you!</button>
+        </form>
+
+
+
+        
+    </div>
+
+{% endblock %}
+
+
+
+
