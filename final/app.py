@@ -36,6 +36,19 @@ def landing():
         # not done, check if csv file, error messages, etc
         if userratings.filename != '':
             userratings.save(userratings.filename)
+        else:
+            # convert uploaded csv file into sql database
+
+            con = sqlite3.connect(":memory:")
+            cur = con.cursor()
+
+            with open(userratings.filename, 'r') as file:
+                dr = csv.DictReader(file)
+                to_db = [(i['Name'], i['Year'], i['Rating']) for i in dr]
+
+            cur.executemany("INSERT INTO letterboxd (name, year, rating) VALUES (?, ?, ?);", to_db)
+            con.commit()
+            con.close()
         return redirect("/result")
 
     # GET
