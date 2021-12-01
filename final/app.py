@@ -49,6 +49,7 @@ def landing():
             cur.executemany("INSERT INTO letterboxd (name, year, rating) VALUES (?, ?, ?);", to_db)
             con.commit()
             con.close()
+            
         return redirect("/result")
 
     # GET
