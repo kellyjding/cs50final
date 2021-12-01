@@ -28,6 +28,20 @@ def after_request(response):
     response.headers["Pragma"] = "no-cache"
     return response
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def landing():
-    return render_template("landing.html")
+    # POST
+    if request.method == "POST":
+        userratings = request.files['ratings']
+        # not done, check if csv file, error messages, etc
+        if userratings.filename != '':
+            userratings.save(userratings.filename)
+        return redirect("/result")
+
+    # GET
+    else:
+        return render_template("landing.html")
+
+@app.route("/result", methods=["GET"])
+def result():
+    return render_template("result.html")
