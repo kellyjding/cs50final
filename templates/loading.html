@@ -1,9 +1,14 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    
+hold on dude
 {% endblock %}
 
 {% block main %}
-
+<form action="/loading" method="get">
+    <div id="loader"></div>
+    <!-- <div style="display:none;" -->
+    <script>window.setTimeout(function () {
+        window.location.replace("/result");}, 5000)</script>
+</form>
 {% endblock %}

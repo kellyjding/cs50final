@@ -1,5 +1,6 @@
 import os
 import re
+import time
 
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
@@ -50,11 +51,15 @@ def landing():
             con.commit()
             con.close()
             
-        return redirect("/result")
+        return redirect("/loading")
 
     # GET
     else:
         return render_template("landing.html")
+
+@app.route("/loading", methods=["GET"])
+def loading():
+    return render_template("loading.html")
 
 @app.route("/result", methods=["GET"])
 def result():

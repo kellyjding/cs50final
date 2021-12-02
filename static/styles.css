@@ -81,6 +81,32 @@ a:hover {
     text-align: center;
 }
 
+#loader {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 130px;
+    margin-bottom: 130px;
+    border-top: 45px solid rgb(7, 66, 77);
+    border-right: 45px solid rgb(16, 176, 152);
+    border-bottom: 45px solid rgb(205, 173, 116);
+    border-left: 45px solid rgb(201, 88, 94);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 .name {
     color: #10324b;
 }
