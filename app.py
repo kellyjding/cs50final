@@ -1,7 +1,8 @@
 import os
 import re
 import time
-
+import csv
+import sqlite3
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
@@ -18,9 +19,6 @@ app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-# Configure CS50 Library to use SQLite database
-db = SQL("sqlite:///movies.csv")
-
 @app.after_request
 def after_request(response):
     """Ensure responses aren't cached"""
@@ -34,28 +32,31 @@ def landing():
     # POST
     if request.method == "POST":
         userratings = request.files['ratings']
-        # not done, check if csv file, error messages, etc
-        if userratings.filename != '':
+        # if file is okay
+        if userratings.filename != '' and userratings.filename.endswith(".csv"):
             userratings.save(userratings.filename)
-        else:
-            # convert uploaded csv file into sql database
 
-            con = sqlite3.connect(":memory:")
+            # convert uploaded csv file into sql database
+            con = sqlite3.connect("letterboxd.db")
             cur = con.cursor()
 
             with open(userratings.filename, 'r') as file:
                 dr = csv.DictReader(file)
                 to_db = [(i['Name'], i['Year'], i['Rating']) for i in dr]
 
+            # create table?
             cur.executemany("INSERT INTO letterboxd (name, year, rating) VALUES (?, ?, ?);", to_db)
             con.commit()
             con.close()
-            
-        return redirect("/loading")
+            return redirect("/loading")
+
+        # return error message
+        else:
+            return render_template("landing.html", error="invalid file")
 
     # GET
     else:
-        return render_template("landing.html")
+        return render_template("landing.html", error="")
 
 @app.route("/loading", methods=["GET"])
 def loading():
