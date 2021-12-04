@@ -64,4 +64,7 @@ def loading():
 
 @app.route("/result", methods=["GET"])
 def result():
+    con = sqlite3.connect("letterboxd.db")
+    cur = con.cursor()
+    cur.executemany("DELETE FROM table_name")
     return render_template("result.html")
