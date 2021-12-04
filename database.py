@@ -7,7 +7,7 @@ from flask_session import Session
 from tempfile import mkdtemp
 
  # convert uploaded csv file into sql database
-con = sqlite3.connect(":memory:")
+con = sqlite3.connect("movies.db")
 cur = con.cursor()
 
 with open('movies.csv', newline='') as file:
