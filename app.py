@@ -66,5 +66,5 @@ def loading():
 def result():
     con = sqlite3.connect("letterboxd.db")
     cur = con.cursor()
-    cur.executemany("DELETE FROM table_name")
+    cur.executemany("DELETE FROM letterboxd")
     return render_template("result.html")
