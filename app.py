@@ -75,13 +75,14 @@ def result():
 
     movielist_dir = cur1.execute("SELECT title FROM movies WHERE (crew LIKE '%quentin tarantino%') OR (crew LIKE '%christopher nolan%') OR (crew LIKE '%wes anderson%')")
     movielist_dir = cur1.fetchall()
-    movielist_user = cur.execute("SELECT name FROM letterboxd WHERE name IN (?)", movielist_dir)
-    movielist_user = cur.fetchall()
-    print(movielist_user)
-    length = len(movielist_user)
-    if length != 0:
-        messages[msgcount] = "you probably think you’re so cool for watching %s" , movielist_user[random.randint(0, length)]['name']
-        msgcount += 1
+    print(movielist_dir)
+    # movielist_user = cur.execute("SELECT name FROM letterboxd WHERE name IN (?)", movielist_dir)
+    # movielist_user = cur.fetchall()
+    # print(movielist_user)
+    # length = len(movielist_user)
+    # if length != 0:
+    #     messages[msgcount] = "you probably think you’re so cool for watching %s" , movielist_user[random.randint(0, length)]['name']
+    #     msgcount += 1
 
-    cur.executemany("DELETE FROM letterboxd")
+    cur.execute("DELETE FROM letterboxd")
     return render_template("result.html")
