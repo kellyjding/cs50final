@@ -6,7 +6,7 @@
 
 {% block main %}
 
-<form action="/summary" method="get">
+<form action="/summary" method="post">
     <h6>we learned that you're...</h6>
     {% for i in range(len2) %}
         {% if summary[i] != "" %}

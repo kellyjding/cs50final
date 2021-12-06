@@ -68,19 +68,19 @@ def result():
     # Establish connection to movies databse
     con = sqlite3.connect("movies.db")
     cur = con.cursor()
-    INSULTNUM = 20
-    SUMMARYNUM = 20
-
+    
     # Make list for messages and counter
+    INSULTNUM = 20
     messages = ["" for a in range(INSULTNUM)]
     msgcount = 0
 
     # Make summary message
+    SUMMARYNUM = 20
     summary = ["" for b in range(SUMMARYNUM)]
     summarycount = 0
 
     if request.method == "GET":
-        
+
         # Call user pretentious for tarantino or anderson movies
         movielist_user = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE (crew LIKE '%quentin tarantino%') OR (crew LIKE '%wes anderson%'))")
         movielist_user = cur.fetchall()
@@ -203,15 +203,6 @@ def result():
             messages[msgcount] = movie + "... such a weird movie.... i mean, it makes sense why YOU watched it... weirdo..."
             msgcount += 1
 
-        # # Adam Sandler
-        # movielist_adam = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE (cast LIKE '%adam sandler%'))")
-        # movielist_adam = cur.fetchall()
-        # length = len(movielist_adam)
-        # if length != 0:
-        #     movie =  movielist_adam[random.randint(0, length-1)][0]
-        #     messages[msgcount] = movie + " was such a good movie. fun fact: co-creator rave andrews has the same bday as adam sandler"
-        #     msgcount += 1
-        
         # Dreamworks - shrek
         movielist_dreamworks = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE production_companies LIKE '%Dreamworks%') AND title NOT IN (SELECT title FROM movies WHERE title LIKE '%Shrek%')")
         movielist_dreamworks = cur.fetchall()
