@@ -2,6 +2,7 @@ import os
 import re
 import time
 import csv
+import random
 import sqlite3
 from cs50 import SQL
 from flask import Flask, flash, redirect, render_template, request, session
@@ -66,5 +67,21 @@ def loading():
 def result():
     con = sqlite3.connect("letterboxd.db")
     cur = con.cursor()
+    con1 = sqlite3.connect("movies.db")
+    cur1 = con1.cursor()
+    INSULTNUM = 20
+    messages = ["" for a in range(INSULTNUM)]
+    msgcount = 0
+
+    movielist_dir = cur1.execute("SELECT title FROM movies WHERE (crew LIKE '%quentin tarantino%') OR (crew LIKE '%christopher nolan%') OR (crew LIKE '%wes anderson%')")
+    movielist_dir = cur1.fetchall()
+    movielist_user = cur.execute("SELECT name FROM letterboxd WHERE name IN (?)", movielist_dir)
+    movielist_user = cur.fetchall()
+    print(movielist_user)
+    length = len(movielist_user)
+    if length != 0:
+        messages[msgcount] = "you probably think you’re so cool for watching %s" , movielist_user[random.randint(0, length)]['name']
+        msgcount += 1
+
     cur.executemany("DELETE FROM letterboxd")
     return render_template("result.html")
