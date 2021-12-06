@@ -75,7 +75,6 @@ def result():
 
     movielist_dir = cur1.execute("SELECT title FROM movies WHERE (crew LIKE '%quentin tarantino%') OR (crew LIKE '%christopher nolan%') OR (crew LIKE '%wes anderson%')")
     movielist_dir = cur1.fetchall()
-    print(movielist_dir)
     # movielist_user = cur.execute("SELECT name FROM letterboxd WHERE name IN (?)", movielist_dir)
     # movielist_user = cur.fetchall()
     # print(movielist_user)
