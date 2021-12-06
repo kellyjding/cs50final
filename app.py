@@ -83,5 +83,6 @@ def result():
         messages[msgcount] = "you probably think you’re so cool for watching %s" , movielist_user[random.randint(0, length)]['name']
         msgcount += 1
 
-    cur.executemany("DELETE FROM letterboxd")
+    allmovies = cur.execute("SELECT name FROM letterboxd")
+    cur.executemany("DELETE FROM letterboxd WHERE name IN (?)", allmovies)
     return render_template("result.html")
