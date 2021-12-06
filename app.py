@@ -68,8 +68,8 @@ def result():
     # Establish connection to movies databse
     con = sqlite3.connect("movies.db")
     cur = con.cursor()
-    INSULTNUM = 20
-    SUMMARYNUM = 20
+    INSULTNUM = 23
+    SUMMARYNUM = 15
 
     # Make list for messages and counter
     messages = ["" for a in range(INSULTNUM)]
@@ -109,7 +109,7 @@ def result():
             movie = movielist_bad[random.randint(0, length-1)][0]
             messages[msgcount] = "wait... you actually enjoyed " + movie + "?"
             msgcount += 1
-            summary[summarycount] = "have awful taste"
+            summary[summarycount] = "taste is stinky"
             summarycount += 1
         
         # Musical stan
@@ -120,7 +120,7 @@ def result():
             movie = movielist_music[random.randint(0, length-1)][0]
             messages[msgcount] = movie + "... you must've been a theater kid."
             msgcount += 1
-            summary[summarycount] = "probably sing broadway tunes in the shower"
+            summary[summarycount] = "probably singing broadway tunes in the shower"
             summarycount += 1
         
         # Romance stan
@@ -131,7 +131,7 @@ def result():
             movie = movielist_romance[random.randint(0, length-1)][0]
             messages[msgcount] = movie + "? looks like you reallyyyy like romance movies... do you need a hug?"
             msgcount += 1
-            summary[summarycount] = "need to get over your ex"
+            summary[summarycount] = "still in love with your ex"
             summarycount += 1
 
         # Western stan
@@ -142,6 +142,8 @@ def result():
             movie = movielist_western[random.randint(0, length-1)][0]
             messages[msgcount] = "you watched " + movie + "? who are you? who watches westerns anymore??"
             msgcount += 1
+            summary[summarycount] = "non existent (like seriously no one watches westerns)"
+            summarycount += 1
 
         # War stan
         movielist_war = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE genres LIKE '%War%')")
@@ -151,6 +153,71 @@ def result():
             movie = movielist_war[random.randint(0, length-1)][0]
             messages[msgcount] = "why did you watch " + movie + "? are you my dad?"
             msgcount += 1
+            summary[summarycount] = "kelly ding's dad who specifically likes war movies"
+            summarycount += 1
+
+        # Marvel stan
+        movielist_marvel = cur.execute("SELECT COUNT(title) FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE production_companies LIKE '%Marvel%')")
+        movielist_marvel = cur.fetchall()
+        if movielist_marvel[0][0] != 0:
+            messages[msgcount] = "you watched " + str(movielist_marvel[0][0]) +" marvel movies. i bet you think marvel is the pinnacle of cinema."
+            msgcount += 1
+
+        # DC stan
+        movielist_dc = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE production_companies LIKE '%DC Comics%')")
+        movielist_dc = cur.fetchall()
+        length = len(movielist_dc)
+        if length != 0:
+            movie = movielist_dc[random.randint(0, length-1)][0]
+            messages[msgcount] = "you enjoyed " + movie +"? u wouldn’t know good cinema even if it slapped u in the face. - a marvel fan"
+            msgcount += 1
+            summary[summarycount] = "wrong. about superhero movies that is."
+            summarycount += 1
+
+
+        # Jesse Eisenberg stan
+        movielist_jesse = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE movies.cast LIKE '%Jesse Eisenberg%')")
+        movielist_jesse = cur.fetchall()
+        length = len(movielist_jesse)
+        if length != 0:
+            movie = movielist_jesse[random.randint(0, length-1)][0]
+            messages[msgcount] = movie + " starring jesse eisenberg??? were u able to understand the dialogue, dummy?"
+            msgcount += 1
+            summary[summarycount] = "a mark zuckerberg apologist"
+            summarycount += 1
+
+        # Jake Gyllenhaal stan
+        movielist_jake = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE movies.cast LIKE '%Jake Gyllenhaal%')")
+        movielist_jake = cur.fetchall()
+        length = len(movielist_jake)
+        if length != 0:
+            movie = movielist_jake[random.randint(0, length-1)][0]
+            messages[msgcount] = "oh my god you know that jake gyllenhaal is in " + movie + " right??? if u care about taylor swift you can no longer support this movie." 
+            msgcount += 1
+            summary[summarycount] = "a jake gyllenhaal supporter"
+            summarycount += 1
+
+        # The Rock stan
+        movielist_rock = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE movies.cast LIKE '%Dwayne Johnson%')")
+        movielist_rock = cur.fetchall()
+        length = len(movielist_rock)
+        if length != 0:
+            movie = movielist_rock[random.randint(0, length-1)][0]
+            messages[msgcount] = movie + " starring dwayne the rock johnson??? ITS ABOUT DRIVE IT’S ABOUT POWER WE STAY HUNGRY WE DEVOUR PUT INT THEWORKDPUTINRHTHOURD DIT"
+            msgcount += 1
+            summary[summarycount] = "dwayne the rock johnson"
+            summarycount += 1
+        
+        # Red flags
+        movielist_red = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE (title LIKE '%Fight Club%') OR (title LIKE '%Inception%') OR (title LIKE '%Wolf of Wall Street%') OR (title LIKE '%Godfather%') OR (title LIKE '%Pulp Fiction%') OR (title LIKE '%Inception%') OR (title LIKE '%Wolf of Wall Street%') OR (title LIKE '%Godfather%') OR (title LIKE '%Inglorious Bastards%'))")
+        movielist_red = cur.fetchall()
+        length = len(movielist_red)
+        if length != 0:
+            movie = movielist_red[random.randint(0, length-1)][0]
+            messages[msgcount] = movie + " ??? red flag red flag red flag red flag"
+            msgcount += 1
+            summary[summarycount] = "a male-manipulating film bro"
+            summarycount += 1
 
         # Horror stan
         movielist_horror = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE genres LIKE '%Horror%')")
@@ -185,6 +252,17 @@ def result():
             summary[summarycount] = "a literal baby"
             summarycount += 1
 
+        # Tim Burton stan
+        movielist_tim = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE production_companies LIKE '%Tim Burton Productions%')")
+        movielist_tim = cur.fetchall()
+        length = len(movielist_tim)
+        if length != 0:
+            movie = movielist_tim[random.randint(0, length-1)][0]
+            messages[msgcount] = movie + "? you def went through an emo phase in middle school… #tøpforever #mcr #patd!"
+            msgcount += 1
+            summary[summarycount] = "a quirky tim burton emo phase middle schooler"
+            summarycount += 1
+
         # Attention span baby
         movielist_time = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE runtime < 90)")
         movielist_time = cur.fetchall()
@@ -203,14 +281,23 @@ def result():
             messages[msgcount] = movie + "... such a weird movie.... i mean, it makes sense why YOU watched it... weirdo..."
             msgcount += 1
 
-        # # Adam Sandler
-        # movielist_adam = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE (cast LIKE '%adam sandler%'))")
-        # movielist_adam = cur.fetchall()
-        # length = len(movielist_adam)
-        # if length != 0:
-        #     movie =  movielist_adam[random.randint(0, length-1)][0]
-        #     messages[msgcount] = movie + " was such a good movie. fun fact: co-creator rave andrews has the same bday as adam sandler"
-        #     msgcount += 1
+        # Danny Devito
+        movielist_danny = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE movies.cast LIKE '%danny devito%')")
+        movielist_danny = cur.fetchall()
+        length = len(movielist_danny)
+        if length != 0:
+            movie =  movielist_danny[random.randint(0, length-1)][0]
+            messages[msgcount] = "did u watch " + movie + " or were you just staring at danny devito the whole time?"
+            msgcount += 1
+
+        # Adam Sandler
+        movielist_adam = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE movies.cast LIKE '%adam sandler%')")
+        movielist_adam = cur.fetchall()
+        length = len(movielist_adam)
+        if length != 0:
+            movie =  movielist_adam[random.randint(0, length-1)][0]
+            messages[msgcount] = movie + " was such a good movie. fun fact: co-creator rave andrews has the same bday as adam sandler"
+            msgcount += 1
         
         # Dreamworks - shrek
         movielist_dreamworks = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE production_companies LIKE '%Dreamworks%') AND title NOT IN (SELECT title FROM movies WHERE title LIKE '%Shrek%')")
