@@ -73,7 +73,7 @@ def result():
     messages = ["" for a in range(INSULTNUM)]
     msgcount = 0
 
-    movielist_dir = cur1.executemany("SELECT title FROM movies WHERE (crew LIKE '%quentin tarantino%') OR (crew LIKE '%christopher nolan%') OR (crew LIKE '%wes anderson%')")
+    movielist_dir = cur1.execute("SELECT title FROM movies WHERE (crew LIKE '%quentin tarantino%') OR (crew LIKE '%christopher nolan%') OR (crew LIKE '%wes anderson%')")
     movielist_dir = cur1.fetchall()
     movielist_user = cur.executemany("SELECT name FROM letterboxd WHERE name IN (?)", movielist_dir)
     movielist_user = cur.fetchall()
