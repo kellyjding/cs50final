@@ -6,7 +6,7 @@
 
 {% block main %}
 
-<form action="/results" method="get">
+<form action="/result" method="get">
     {% for i in range(len) %}
         {% if messages[i] != "" %}
             <h6>> {{ messages[i] }}</h6>
@@ -14,8 +14,12 @@
         {% endif %}
     {% endfor %}
     <br></br>
+</form>
+
+<form action="/result" method="post">
     <button type="submit" id="uploadbtn">get summary</button>
 </form>
+
 
 
 {% endblock %}
