@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    enjoy your results... lol
+{% endblock %}
+
+{% block main %}
+
+<form action="/summary" method="get">
+    <h6>we learned that you're...</h6>
+    {% for i in range(len2) %}
+        {% if summary[i] != "" %}
+            <h6>> {{ summary[i] }}</h6>
+            <h6>></h6>
+        {% endif %}
+    {% endfor %}
+</form>
+
+
+{% endblock %}
