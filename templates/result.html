@@ -9,9 +9,9 @@
 <form action="/results" method="get">
     {% for i in range(len) %}
         {% if messages[i] != "" %}
-            <p>>{{ messages[i] }}</p>
-            <p>></p>
-            <p>></p>
+            <h6>> {{ messages[i] }}</h6>
+            <h6>></h6>
+            <h6>></h6>
         {% endif %}
     {% endfor %}
 </form>

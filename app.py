@@ -33,25 +33,25 @@ def landing():
     # POST
     if request.method == "POST":
         userratings = request.files['ratings']
-        # if file is okay
+        # If file is valid
         if userratings.filename != '' and userratings.filename.endswith(".csv"):
             userratings.save(userratings.filename)
 
-            # convert uploaded csv file into sql database
-            con = sqlite3.connect("letterboxd.db")
+            # Convert uploaded csv file into sql database
+            con = sqlite3.connect("movies.db")
             cur = con.cursor()
 
             with open(userratings.filename, 'r') as file:
                 dr = csv.DictReader(file)
                 to_db = [(i['Name'], i['Year'], i['Rating']) for i in dr]
 
-            # create table?
-            cur.executemany("INSERT INTO letterboxd (name, year, rating) VALUES (?, ?, ?);", to_db)
+            # Insert user ratings into letterboxd table
+            cur.executemany("INSERT INTO letterboxd (title, year, rating) VALUES (?, ?, ?);", to_db)
             con.commit()
             con.close()
             return redirect("/loading")
 
-        # return error message
+        # If file invalid, return error message
         else:
             return render_template("landing.html", error="invalid file")
 
@@ -65,27 +65,28 @@ def loading():
 
 @app.route("/result", methods=["GET"])
 def result():
-    con = sqlite3.connect("letterboxd.db")
+    # Establish connection to movies databse
+    con = sqlite3.connect("movies.db")
     cur = con.cursor()
-    con1 = sqlite3.connect("movies.db")
-    cur1 = con1.cursor()
     INSULTNUM = 20
+
+    # Make list for messages and counter
     messages = ["" for a in range(INSULTNUM)]
     msgcount = 0
 
-    movielist_dir = cur1.execute("SELECT title FROM movies WHERE (crew LIKE '%quentin tarantino%') OR (crew LIKE '%christopher nolan%') OR (crew LIKE '%wes anderson%')")
-    movielist_dir = cur1.fetchall()
-    movielist_user = cur.executemany("SELECT name FROM letterboxd WHERE name IN (?)", movielist_dir)
+    # Call user pretencious for tarantino, anderson or nolan movies
+    movielist_user = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE (crew LIKE '%quentin tarantino%') OR (crew LIKE '%christopher nolan%') OR (crew LIKE '%wes anderson%'))")
     movielist_user = cur.fetchall()
-    print(movielist_user)
     length = len(movielist_user)
     if length != 0:
-        messages[msgcount] = "you probably think you’re so cool for watching %s" , movielist_user[random.randint(0, length)]['name']
+        movie =  movielist_user[random.randint(0, length-1)][0]
+        messages[msgcount] = "you probably think you’re so cool for watching " + movie
         msgcount += 1
 
-    allmovies = cur.execute("SELECT name FROM letterboxd")
+    # Delete rows from letterboxd table
+    allmovies = cur.execute("SELECT title FROM letterboxd")
     allmovies = cur.fetchall()
-    cur.executemany("DELETE FROM letterboxd WHERE name IN (?)", allmovies)
+    cur.executemany("DELETE FROM letterboxd WHERE title IN (?)", allmovies)
     cur.close()
-    cur.close()
+
     return render_template("result.html", messages=messages, len=INSULTNUM)
