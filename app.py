@@ -84,5 +84,6 @@ def result():
         msgcount += 1
 
     allmovies = cur.execute("SELECT name FROM letterboxd")
+    allmovies = cur.fetchall()
     cur.executemany("DELETE FROM letterboxd WHERE name IN (?)", allmovies)
     return render_template("result.html")
