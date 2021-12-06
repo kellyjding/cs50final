@@ -74,14 +74,16 @@ def result():
     messages = ["" for a in range(INSULTNUM)]
     msgcount = 0
 
-    # Call user pretencious for tarantino, anderson or nolan movies
-    movielist_user = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE (crew LIKE '%quentin tarantino%') OR (crew LIKE '%christopher nolan%') OR (crew LIKE '%wes anderson%'))")
+    # Call user pretencious for tarantino or anderson movies
+    movielist_user = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE (crew LIKE '%quentin tarantino%') OR (crew LIKE '%wes anderson%'))")
     movielist_user = cur.fetchall()
     length = len(movielist_user)
     if length != 0:
         movie =  movielist_user[random.randint(0, length-1)][0]
         messages[msgcount] = "you probably think you’re so cool for watching " + movie + "."
         msgcount += 1
+    movielist_user = cur.execute("SELECT title FROM letterboxd WHERE title='clear this variable'")
+    movielist_user = cur.fetchall()
 
     # Call user out on movie runtime
     movielist_time = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE runtime > 150)")
@@ -91,6 +93,8 @@ def result():
         movie = movielist_time[random.randint(0, length-1)][0]
         messages[msgcount] = "you sat through the entirety of " + movie + "? good for u i guess..."
         msgcount += 1
+    movielist_time = cur.execute("SELECT title FROM letterboxd WHERE title='clear this variable'")
+    movielist_time = cur.fetchall()
 
     # Enjoyed bad movie?
     movielist_bad = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE vote_average <= 6) AND rating >= 5")
@@ -100,6 +104,8 @@ def result():
         movie = movielist_bad[random.randint(0, length-1)][0]
         messages[msgcount] = "wait... you actually enjoyed " + movie + "?"
         msgcount += 1
+    movielist_bad = cur.execute("SELECT title FROM letterboxd WHERE title='clear this variable'")
+    movielist_bad = cur.fetchall()
     
     # Musical stan
     movielist_music = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE genres LIKE '%Music%')")
@@ -109,6 +115,8 @@ def result():
         movie = movielist_music[random.randint(0, length-1)][0]
         messages[msgcount] = movie + "... you must've been a theater kid."
         msgcount += 1
+    movielist_music = cur.execute("SELECT title FROM letterboxd WHERE title='clear this variable'")
+    movielist_music = cur.fetchall()
     
     # Romance stan
     movielist_romance = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE genres LIKE '%Romance%')")
@@ -118,6 +126,8 @@ def result():
         movie = movielist_romance[random.randint(0, length-1)][0]
         messages[msgcount] = movie + "? looks like you reallyyyy like romance movies... do you need a hug?"
         msgcount += 1
+    movielist_romance = cur.execute("SELECT title FROM letterboxd WHERE title='clear this variable'")
+    movielist_romance = cur.fetchall()
 
     # Western stan
     movielist_western = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE genres LIKE '%Western%')")
@@ -127,6 +137,8 @@ def result():
         movie = movielist_western[random.randint(0, length-1)][0]
         messages[msgcount] = "you watched " + movie + "? who are you? who watches westerns anymore??"
         msgcount += 1
+    movielist_western = cur.execute("SELECT title FROM letterboxd WHERE title='clear this variable'")
+    movielist_western = cur.fetchall()
 
     # War stan
     movielist_war = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE genres LIKE '%War%')")
@@ -136,6 +148,8 @@ def result():
         movie = movielist_war[random.randint(0, length-1)][0]
         messages[msgcount] = "why did you watch " + movie + "? are you my dad?"
         msgcount += 1
+    movielist_war = cur.execute("SELECT title FROM letterboxd WHERE title='clear this variable'")
+    movielist_war = cur.fetchall()
 
     # Horror stan
     movielist_horror = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE genres LIKE '%Horror%')")
@@ -145,6 +159,8 @@ def result():
         movie = movielist_horror[random.randint(0, length-1)][0]
         messages[msgcount] = movie + " definitely made you piss your pants."
         msgcount += 1
+    movielist_horror = cur.execute("SELECT title FROM letterboxd WHERE title='clear this variable'")
+    movielist_horror = cur.fetchall()
 
     # Star wars stan
     movielist_starwars = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE production_companies LIKE '%Lucasfilm%')")
@@ -154,6 +170,8 @@ def result():
         movie = movielist_starwars[random.randint(0, length-1)][0]
         messages[msgcount] = movie + "? you're a star wars fan? hope you didn't actually enjoy the prequels..."
         msgcount += 1
+    movielist_starwars = cur.execute("SELECT title FROM letterboxd WHERE title='clear this variable'")
+    movielist_starwars = cur.fetchall()
     
     # Disney stan
     movielist_disney = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE production_companies LIKE '%Disney%')")
@@ -163,6 +181,8 @@ def result():
         movie = movielist_disney[random.randint(0, length-1)][0]
         messages[msgcount] = movie + "? are you... an infant? a little baby maybe? a tiny little child?"
         msgcount += 1
+    movielist_disney = cur.execute("SELECT title FROM letterboxd WHERE title='clear this variable'")
+    movielist_disney = cur.fetchall()
 
     # Attention span baby
     movielist_time = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE runtime < 90)")
@@ -172,6 +192,8 @@ def result():
         movie = movielist_time[random.randint(0, length-1)][0]
         messages[msgcount] = movie + " is literally so short, does it even count as a movie... do you have the attention span of an ipad kid?"
         msgcount += 1
+    movielist_time = cur.execute("SELECT title FROM letterboxd WHERE title='clear this variable'")
+    movielist_time = cur.fetchall()
 
     # Weird movies
     movielist_weird = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE (crew LIKE '%stanley kubrick%') OR (crew LIKE '%guillermo del toro%') OR (crew LIKE '%robert eggers%') OR (crew LIKE '%ari aster%'))")
@@ -181,6 +203,8 @@ def result():
         movie =  movielist_weird[random.randint(0, length-1)][0]
         messages[msgcount] = movie + "... such a weird movie.... i mean, it makes sense why YOU watched it... weirdo..."
         msgcount += 1
+    movielist_weird = cur.execute("SELECT title FROM letterboxd WHERE title='clear this variable'")
+    movielist_weird = cur.fetchall()
 
     # # Adam Sandler
     # movielist_adam = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE (cast LIKE '%adam sandler%'))")
@@ -199,6 +223,8 @@ def result():
         movie =  movielist_dreamworks[random.randint(0, length-1)][0]
         messages[msgcount] = "ahh i see you watched " + movie + "... you know shrek is the only good dreamworks movie, right?"
         msgcount += 1
+    movielist_dreamworks = cur.execute("SELECT title FROM letterboxd WHERE title='clear this variable'")
+    movielist_dreamworks = cur.fetchall()
 
     # A24
     movielist_a24 = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE production_companies LIKE '%A24%')")
@@ -208,21 +234,18 @@ def result():
         movie = movielist_a24[random.randint(0, length-1)][0]
         messages[msgcount] = "you liked " + movie + "? ugh another a24-obsessed-tote-bag-carrying film lover?"
         msgcount += 1
+    movielist_a24 = cur.execute("SELECT title FROM letterboxd WHERE title='clear this variable'")
+    movielist_a24 = cur.fetchone()
 
     # Delete rows from letterboxd table and clear lists
-    allmovies = cur.execute("SELECT title FROM letterboxd")
-    allmovies = cur.fetchall()
-    cur.executemany("DELETE FROM letterboxd WHERE title IN (?)", allmovies)
-    movielist_user.clear()
-    movielist_bad.clear()
-    movielist_time.clear()
-    movielist_music.clear()
-    movielist_romance.clear()
-    movielist_western.clear()
-    movielist_war.clear()
-    movielist_a24.clear()
-    movielist_dreamworks.clear()
-    movielist_weird.clear()
-    cur.close()
+    # allmovies = cur.execute("SELECT title FROM letterboxd")
+    # allmovies = cur.fetchall()
+    # messages.clear()
+    # cur.executemany("DELETE FROM letterboxd WHERE title IN (?)", allmovies)
+    # cur.close()
+    cur.execute("DELETE FROM letterboxd")
+    con.commit()
+    con.close()
+
 
     return render_template("result.html", messages=messages, len=INSULTNUM)
