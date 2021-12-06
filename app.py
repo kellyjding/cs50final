@@ -83,6 +83,34 @@ def result():
         messages[msgcount] = "you probably think you’re so cool for watching " + movie
         msgcount += 1
 
+    # Call user out on movie runtime
+    movielist_time = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE runtime > 150)")
+    movielist_time = cur.fetchall()
+    length = len(movielist_time)
+    if length != 0:
+        movie = movielist_time[random.randint(0, length-1)][0]
+        messages[msgcount] = "you sat through the entirety of " + movie + "? good for u i guess..."
+        msgcount += 1
+
+    # Enjoyed bad movie?
+    movielist_bad = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE vote_average <= 6) AND rating >= 5")
+    movielist_bad = cur.fetchall()
+    length = len(movielist_bad)
+    if length != 0:
+        movie = movielist_bad[random.randint(0, length-1)][0]
+        messages[msgcount] = "wait... you actually enjoyed " + movie + "?"
+        msgcount += 1
+    
+    # # Musical stan
+    # movielist_music = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE genres LIKE '%Music%')")
+    # movielist_music = cur.fetchall()
+    # length = len(movielist_music)
+    # if length != 0:
+    #     movie = movielist_music[random.randint(0, length-1)][0]
+    #     messages[msgcount] = "ah yes... " + movie + ". you must've been a theater kid"
+    #     msgcount += 1
+    
+
     # Delete rows from letterboxd table
     allmovies = cur.execute("SELECT title FROM letterboxd")
     allmovies = cur.fetchall()
