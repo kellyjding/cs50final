@@ -169,3 +169,8 @@ h1 {
     from{width: 0;}
     to{width: 360px;}
   }
+
+  h6 {
+    margin-top: 20px;
+    margin-left: 25px;
+}

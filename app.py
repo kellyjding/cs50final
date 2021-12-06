@@ -80,7 +80,7 @@ def result():
     length = len(movielist_user)
     if length != 0:
         movie =  movielist_user[random.randint(0, length-1)][0]
-        messages[msgcount] = "you probably think you’re so cool for watching " + movie
+        messages[msgcount] = "you probably think you’re so cool for watching " + movie + "."
         msgcount += 1
 
     # Call user out on movie runtime
@@ -101,20 +101,81 @@ def result():
         messages[msgcount] = "wait... you actually enjoyed " + movie + "?"
         msgcount += 1
     
-    # # Musical stan
-    # movielist_music = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE genres LIKE '%Music%')")
-    # movielist_music = cur.fetchall()
-    # length = len(movielist_music)
-    # if length != 0:
-    #     movie = movielist_music[random.randint(0, length-1)][0]
-    #     messages[msgcount] = "ah yes... " + movie + ". you must've been a theater kid"
-    #     msgcount += 1
+    # Musical stan
+    movielist_music = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE genres LIKE '%Music%')")
+    movielist_music = cur.fetchall()
+    length = len(movielist_music)
+    if length != 0:
+        movie = movielist_music[random.randint(0, length-1)][0]
+        messages[msgcount] = movie + "... you must've been a theater kid."
+        msgcount += 1
+    
+    # Romance stan
+    movielist_romance = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE genres LIKE '%Romance%')")
+    movielist_romance = cur.fetchall()
+    length = len(movielist_romance)
+    if length != 0:
+        movie = movielist_romance[random.randint(0, length-1)][0]
+        messages[msgcount] = movie + "? looks like you reallyyyy like romance movies... do you need a hug?"
+        msgcount += 1
+
+    # Western stan
+    movielist_western = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE genres LIKE '%Western%')")
+    movielist_western = cur.fetchall()
+    length = len(movielist_western)
+    if length != 0:
+        movie = movielist_western[random.randint(0, length-1)][0]
+        messages[msgcount] = "you watched " + movie + "? who are you? who watches westerns anymore??"
+        msgcount += 1
+
+    # War stan
+    movielist_war = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE genres LIKE '%War%')")
+    movielist_war = cur.fetchall()
+    length = len(movielist_war)
+    if length != 0:
+        movie = movielist_war[random.randint(0, length-1)][0]
+        messages[msgcount] = "why did you watch " + movie + "? are you my dad?"
+        msgcount += 1
+
+    # Horror stan
+    movielist_horror = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE genres LIKE '%Horror%')")
+    movielist_horror = cur.fetchall()
+    length = len(movielist_horror)
+    if length != 0:
+        movie = movielist_horror[random.randint(0, length-1)][0]
+        messages[msgcount] = movie + " definitely made you piss your pants."
+        msgcount += 1
+
+    # Star wars stan
+    movielist_starwars = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE production_companies LIKE '%Lucasfilm%')")
+    movielist_starwars = cur.fetchall()
+    length = len(movielist_starwars)
+    if length != 0:
+        movie = movielist_starwars[random.randint(0, length-1)][0]
+        messages[msgcount] = movie + "? you're a star wars fan? hope you didn't actually enjoy the prequels..."
+        msgcount += 1
+    
+    # Disney stan
+    movielist_disney = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE production_companies LIKE '%Disney%')")
+    movielist_disney = cur.fetchall()
+    length = len(movielist_disney)
+    if length != 0:
+        movie = movielist_disney[random.randint(0, length-1)][0]
+        messages[msgcount] = movie + "? are u … an infant? a little baby maybe? a tiny little child?"
+        msgcount += 1
     
 
     # Delete rows from letterboxd table
     allmovies = cur.execute("SELECT title FROM letterboxd")
     allmovies = cur.fetchall()
     cur.executemany("DELETE FROM letterboxd WHERE title IN (?)", allmovies)
+    movielist_user.clear()
+    movielist_bad.clear()
+    movielist_time.clear()
+    movielist_music.clear()
+    movielist_romance.clear()
+    movielist_western.clear()
+    movielist_war.clear()
     cur.close()
 
     return render_template("result.html", messages=messages, len=INSULTNUM)
