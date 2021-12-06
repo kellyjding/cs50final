@@ -107,7 +107,7 @@ def result():
         movie = movielist_bad[random.randint(0, length-1)][0]
         messages[msgcount] = "wait... you actually enjoyed " + movie + "?"
         msgcount += 1
-        summary[summarycount] = "taste is stinky"
+        summary[summarycount] = "too pretentious for your own good"
         summarycount += 1
     
     # Musical stan
@@ -201,7 +201,7 @@ def result():
     length = len(movielist_rock)
     if length != 0:
         movie = movielist_rock[random.randint(0, length-1)][0]
-        messages[msgcount] = movie + " starring dwayne the rock johnson??? ITS ABOUT DRIVE IT’S ABOUT POWER WE STAY HUNGRY WE DEVOUR PUT INT THEWORKDPUTINRHTHOURD DIT"
+        messages[msgcount] = movie + " starring dwayne the rock johnson??? ITS ABOUT DRIVE IT’S ABOUT POWER WE STAY HUNGRY WE DEVOUR PUT INTHEWORKDPUTINRHTHOURD DIT"
         msgcount += 1
         summary[summarycount] = "dwayne the rock johnson"
         summarycount += 1

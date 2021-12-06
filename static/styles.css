@@ -171,9 +171,30 @@ h1 {
     to{width: 360px;}
   }
 
-  h6 {
+h6 {
     margin-top: 20px;
     margin-left: 25px;
     font-family: 'Source Code Pro', monospace;
     font-size: 15px;
+}
+
+h5 {
+    margin-top: 20px;
+    margin-left: 40px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 15px;
+}
+
+h4 {
+    border-right: solid 3px #00b29c;
+    white-space: nowrap;
+    overflow: hidden;    
+    font-family: 'Source Code Pro', monospace;  
+    font-size: 24px;
+    color: #00454a;
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 50px;
+    animation: animated-text2 2s steps(29,end) 0.5s 1 normal both,
+    animated-cursor 900ms steps(29,end) infinite;
 }
