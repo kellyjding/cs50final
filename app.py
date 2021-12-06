@@ -161,11 +161,55 @@ def result():
     length = len(movielist_disney)
     if length != 0:
         movie = movielist_disney[random.randint(0, length-1)][0]
-        messages[msgcount] = movie + "? are u … an infant? a little baby maybe? a tiny little child?"
+        messages[msgcount] = movie + "? are you... an infant? a little baby maybe? a tiny little child?"
         msgcount += 1
-    
 
-    # Delete rows from letterboxd table
+    # Attention span baby
+    movielist_time = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE runtime < 90)")
+    movielist_time = cur.fetchall()
+    length = len(movielist_time)
+    if length != 0:
+        movie = movielist_time[random.randint(0, length-1)][0]
+        messages[msgcount] = movie + " is literally so short, does it even count as a movie... do you have the attention span of an ipad kid?"
+        msgcount += 1
+
+    # Weird movies
+    movielist_weird = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE (crew LIKE '%stanley kubrick%') OR (crew LIKE '%guillermo del toro%') OR (crew LIKE '%robert eggers%') OR (crew LIKE '%ari aster%'))")
+    movielist_weird = cur.fetchall()
+    length = len(movielist_weird)
+    if length != 0:
+        movie =  movielist_weird[random.randint(0, length-1)][0]
+        messages[msgcount] = movie + "... such a weird movie.... i mean, it makes sense why YOU watched it... weirdo..."
+        msgcount += 1
+
+    # # Adam Sandler
+    # movielist_adam = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE (cast LIKE '%adam sandler%'))")
+    # movielist_adam = cur.fetchall()
+    # length = len(movielist_adam)
+    # if length != 0:
+    #     movie =  movielist_adam[random.randint(0, length-1)][0]
+    #     messages[msgcount] = movie + " was such a good movie. fun fact: co-creator rave andrews has the same bday as adam sandler"
+    #     msgcount += 1
+    
+    # Dreamworks - shrek
+    movielist_dreamworks = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE production_companies LIKE '%Dreamworks%') AND title NOT IN (SELECT title FROM movies WHERE title LIKE '%Shrek%')")
+    movielist_dreamworks = cur.fetchall()
+    length = len(movielist_dreamworks)
+    if length != 0:
+        movie =  movielist_dreamworks[random.randint(0, length-1)][0]
+        messages[msgcount] = "ahh i see you watched " + movie + "... you know shrek is the only good dreamworks movie, right?"
+        msgcount += 1
+
+    # A24
+    movielist_a24 = cur.execute("SELECT title FROM letterboxd WHERE title IN (SELECT title FROM movies WHERE production_companies LIKE '%A24%')")
+    movielist_a24 = cur.fetchall()
+    length = len(movielist_a24)
+    if length != 0:
+        movie = movielist_a24[random.randint(0, length-1)][0]
+        messages[msgcount] = "you liked " + movie + "? ugh another a24-obsessed-tote-bag-carrying film lover?"
+        msgcount += 1
+
+    # Delete rows from letterboxd table and clear lists
     allmovies = cur.execute("SELECT title FROM letterboxd")
     allmovies = cur.fetchall()
     cur.executemany("DELETE FROM letterboxd WHERE title IN (?)", allmovies)
@@ -176,6 +220,9 @@ def result():
     movielist_romance.clear()
     movielist_western.clear()
     movielist_war.clear()
+    movielist_a24.clear()
+    movielist_dreamworks.clear()
+    movielist_weird.clear()
     cur.close()
 
     return render_template("result.html", messages=messages, len=INSULTNUM)

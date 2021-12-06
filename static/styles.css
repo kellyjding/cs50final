@@ -173,4 +173,6 @@ h1 {
   h6 {
     margin-top: 20px;
     margin-left: 25px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 15px;
 }
