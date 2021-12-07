@@ -1,10 +1,5 @@
-import os
-import re
 import csv
 import sqlite3
-from flask import Flask, flash, redirect, render_template, request, session
-from flask_session import Session
-from tempfile import mkdtemp
 
  # convert uploaded csv file into sql database
 con = sqlite3.connect("movies.db")
