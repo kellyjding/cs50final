@@ -7,6 +7,10 @@
 {% block main %}
 
 <form action="/result" method="get">
+    <h6>> analysis complete ...</h6>
+    <h6>> here's what we noticed...</h6>
+    <h6>></h6>
+    <h6>></h6>
     {% for i in range(len) %}
         {% if messages[i] != "" %}
             <h6>> {{ messages[i] }}</h6>

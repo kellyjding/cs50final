@@ -136,6 +136,11 @@ p {
     margin-bottom: 2em;
 }
 
+#share {
+    margin: auto;
+    padding: 3em 3em;
+}
+
 /* Animation from Aakhya Singh, https://codepen.io/aakhya/pen/wQWZXV */
 p {
   animation: animated-text 4s steps(29,end) 1s 1 normal both,
@@ -197,4 +202,9 @@ h4 {
     margin-bottom: 50px;
     animation: animated-text2 2s steps(29,end) 0.5s 1 normal both,
     animated-cursor 900ms steps(29,end) infinite;
+}
+
+h3 {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 20px;
 }
