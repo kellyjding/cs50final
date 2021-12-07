@@ -1,6 +1,3 @@
-import os
-import re
-import time
 import csv
 import random
 import sqlite3
@@ -30,9 +27,11 @@ def after_request(response):
 
 @app.route("/", methods=["GET", "POST"])
 def landing():
-    # POST
+    # If user uploads a file (POST)
     if request.method == "POST":
+        # Get file from form
         userratings = request.files['ratings']
+
         # If file is valid
         if userratings.filename != '' and userratings.filename.endswith(".csv"):
             userratings.save(userratings.filename)
@@ -40,7 +39,6 @@ def landing():
             # Convert uploaded csv file into sql database
             con = sqlite3.connect("movies.db")
             cur = con.cursor()
-
             with open(userratings.filename, 'r') as file:
                 dr = csv.DictReader(file)
                 to_db = [(i['Name'], i['Year'], i['Rating']) for i in dr]
@@ -49,18 +47,21 @@ def landing():
             cur.executemany("INSERT INTO letterboxd (title, year, rating) VALUES (?, ?, ?);", to_db)
             con.commit()
             con.close()
+
+            # Redirect user to loading page
             return redirect("/loading")
 
         # If file invalid, return error message
         else:
             return render_template("landing.html", error="invalid file")
 
-    # GET
+    # If user accesses page (GET)
     else:
         return render_template("landing.html", error="")
 
 @app.route("/loading", methods=["GET"])
 def loading():
+    # When redirected to loading route, render loading.html page
     return render_template("loading.html")
 
 @app.route("/result", methods=["GET", "POST"])
@@ -71,11 +72,11 @@ def result():
     INSULTNUM = 23
     SUMMARYNUM = 15
 
-    # Make list for messages and counter
+    # Make list for messages to display on results page and counter for number of messages
     messages = ["" for a in range(INSULTNUM)]
     msgcount = 0
 
-    # Make summary message
+    # Make list for summary messages to display on summary page and counter for number of summary messages
     summary = ["" for b in range(SUMMARYNUM)]
     summarycount = 0
 
@@ -315,12 +316,16 @@ def result():
         messages[msgcount] = "you liked " + movie + "? ugh another a24-obsessed-tote-bag-carrying film lover?"
         msgcount += 1
 
-    if request.method == "GET":
-        return render_template("result.html", messages=messages, len=INSULTNUM)
-
-    else: 
+    # If user clicks summary button
+    if request.method == "POST":
         # Delete rows from letterboxd table and clear lists
         cur.execute("DELETE FROM letterboxd")
         con.commit()
         con.close()
+
+        # Render summary.html page with summary messages and length
         return render_template("summary.html", summary=summary, len2=SUMMARYNUM)
+        
+    # If user is redirected to page (GET)
+    else: 
+        return render_template("result.html", messages=messages, len=INSULTNUM)
