@@ -1,0 +1,210 @@
+/* COLOR PALETTE
+darkest blue: #051514
+dark blue: #10324b
+dark turq: #00454a
+turq: #00b29c
+light green: #d7eccb
+pinkyred: #d85f57
+orange: #e06d34
+maroon: #6d271d
+bkg peach: #ebdbc1 */
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Source+Code+Pro');
+
+body {
+    background-color: #ebdbc1;
+    padding: 40px;
+    font-family: 'Fira Sans';
+}
+
+/* layout.html */
+.navbar-brand {
+    color: #051514;
+    font-size:x-large;
+}
+
+/* landing.html */
+#header {
+    padding: 10em 0em 10em;
+    text-align: center;
+}
+
+.col {
+    padding: 2em 0em 5em;
+    text-align: center;
+}
+
+#startbtn {
+    border-radius: 25px;
+    margin: auto;
+    background-color: #6d271d;
+    border: none;
+    color: #ebdbc1;
+    padding: 1em;
+    text-align: center;
+}
+
+#instructions {
+    padding: 2em 0em 7em;
+    width: 80%;
+}
+
+#description {
+    padding: 2em 0em 2em;
+    width: 80%;
+}
+
+#uploadform {
+    text-align: center;
+}
+
+a {
+    color: #00b29c;
+}
+
+a:hover {
+    color: #00454a;
+}  
+
+#uploadbtn {
+    border-radius: 35px;
+    margin: auto;
+    background-color: #6d271d;
+    border: none;
+    color: #ebdbc1;
+    padding: 1.5em;
+    text-align: center;
+}
+
+
+#about {
+    text-align: center;
+}
+
+#loader {
+    margin-right: auto;
+    margin-left: auto;
+    margin-top: 130px;
+    margin-bottom: 80px;
+    border-top: 45px solid rgb(7, 66, 77);
+    border-right: 45px solid rgb(16, 176, 152);
+    border-bottom: 45px solid rgb(205, 173, 116);
+    border-left: 45px solid rgb(201, 88, 94);
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    -webkit-animation: spin 2s linear infinite;
+    animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.name {
+    color: #10324b;
+}
+
+#kellyravepic {
+    width: 270px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
+
+ul {
+    text-align: left;
+    color: #00454a;
+}
+
+p {
+    border-right: solid 3px #00b29c;
+    white-space: nowrap;
+    overflow: hidden;    
+    font-family: 'Source Code Pro', monospace;  
+    font-size: 40px;
+    color: #00454a;
+    margin: 0 auto;
+    margin-top: 2em;
+    margin-bottom: 2em;
+}
+
+#share {
+    margin: auto;
+    padding: 3em 3em;
+}
+
+/* Animation from Aakhya Singh, https://codepen.io/aakhya/pen/wQWZXV */
+p {
+  animation: animated-text 4s steps(29,end) 1s 1 normal both,
+             animated-cursor 600ms steps(29,end) infinite;
+}
+
+@keyframes animated-text {
+  from{width: 0;}
+  to{width: 472px;}
+}
+
+@keyframes animated-cursor {
+  from{border-right-color: #00b29c;}
+  to{border-right-color: transparent;}
+}
+
+h1 {
+    border-right: solid 3px #00b29c;
+    white-space: nowrap;
+    overflow: hidden;    
+    font-family: 'Source Code Pro', monospace;  
+    font-size: 20px;
+    color: #00454a;
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 50px;
+    animation: animated-text2 2s steps(29,end) 0.5s 1 normal both,
+    animated-cursor 900ms steps(29,end) infinite;
+}
+
+@keyframes animated-text2 {
+    from{width: 0;}
+    to{width: 360px;}
+  }
+
+h6 {
+    margin-top: 20px;
+    margin-left: 25px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 15px;
+}
+
+h5 {
+    margin-top: 20px;
+    margin-left: 40px;
+    font-family: 'Source Code Pro', monospace;
+    font-size: 20px;
+}
+
+h4 {
+    border-right: solid 3px #00b29c;
+    white-space: nowrap;
+    overflow: hidden;    
+    font-family: 'Source Code Pro', monospace;  
+    font-size: 24px;
+    color: #00454a;
+    margin: 0 auto;
+    margin-top: 5px;
+    margin-bottom: 50px;
+    animation: animated-text2 2s steps(29,end) 0.5s 1 normal both,
+    animated-cursor 900ms steps(29,end) infinite;
+}
+
+h3 {
+    font-family: 'Source Code Pro', monospace;
+    font-size: 20px;
+}

@@ -1,0 +1,77 @@
+{% extends "layout.html" %}
+
+{% block title %}
+ur movie taste sux
+{% endblock %}
+
+{% block main %}
+
+<!-- Title with animation -->
+<div id="header">
+    <p>ur movie taste sux.</p>
+</div>
+
+<!-- Get Started button -->
+<div class="col text-center">
+    <form method="get" action="#instructions">
+        <button type="submit" id="startbtn">get started</button>
+    </form>
+</div>
+
+
+<!-- Instructions and upload-->
+<div class="container" id="instructions">
+    <h2>follow these steps!</h2>
+    <ol>
+        <li>go to <a href="https://letterboxd.com/settings/data/">letterboxd.com</a>
+            and on the settings page, click the <b>import & export</b> tab!</li>
+        <li>click the <b>'export your data'</b> button.</li>
+        <li>upload your <b>'ratings.csv'</b> file here!!!!</li>
+    </ol>
+
+    <form method="POST" action="" enctype="multipart/form-data" id="uploadform">
+        <div class="input-group mb-3">
+            <input type="file" class="form-control" id="inputGroupFile02" id="movieupload" accept=".csv" name="ratings">
+        </div>
+        <h3>{{ error }}</h3>
+        <button type="submit" id="uploadbtn">let us judge you!</button>
+    </form>
+</div>
+
+<!-- About the Creators -->
+<div id="about">
+    <h2>about the creators</h2>
+    <div class="container" id="description">
+        <div class="row">
+            <div class="col">
+                <h3 class="name">rave andrews</h3>
+                <ul>
+                    <li>first year from michigan</li>
+                    <li>cs major</li>
+                    <li>christopher nolan stan</li>
+                    <li>it's true. i like marvel. sue me.</li>
+                    <li>tried to defend mark zucc in the social network</li>
+                    <li>has never cried during a movie but got close in amazing spiderman 2</li>
+                    <li>likes wes anderson movies</li>
+                </ul>
+            </div>
+            <div class="col">
+                <img src="static/kellyrave.jpeg" alt="kelly and rave" width="200" id="kellyravepic">
+            </div>
+            <div class="col">
+                <h3 class="name">kelly ding</h3>
+                <ul>
+                    <li>first year from ontario, canada</li>
+                    <li>cs major</li>
+                    <li>has seen inception</li>
+                    <li>idk shang chi was good</li>
+                    <li>had an andrew garfield phase</li>
+                    <li>cried for an hour straight after frozen 2 and sobbed in the theatre after the maze runner 2</li>
+                    <li>has never seen a wes anderson movie</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
